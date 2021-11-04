@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  Infrastructure needed for an automated backup tool.
+Parameters:
+Resources:
+  BackupGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      Path:
+      Policies:
+        - policy
+  BackupUser:
+    Type: AWS::IAM::User
+    Properties:
+      Path: /
+      Groups:
+        - groupname
+      Policies:
+        - policyname
+      ManagedPolicyArns:
+        - managedpolicyarn
+  BackupPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName:
+      Groups:
+        - group
+      Roles:
+        - role
+      Users:
+        - user
+      PolicyDocument: # policy document - can be JSON or YAML
+  BackupBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      CorsConfiguration:
+      LifecycleConfiguration:
+      NotificationConfiguration:
+      VersioningConfiguration:
+      WebsiteConfiguration:
+      Tags:
+        - Key: Name
+          Value: Backup
+Outputs:

@@ -1,45 +1,39 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
   Infrastructure needed for an automated backup tool.
-Parameters:
 Resources:
   BackupGroup:
     Type: AWS::IAM::Group
     Properties:
-      Path:
-      Policies:
-        - policy
+      GroupName: Cloud-Backup-Group
   BackupUser:
     Type: AWS::IAM::User
     Properties:
+      UserName: BackupUser
       Path: /
       Groups:
-        - groupname
-      Policies:
-        - policyname
-      ManagedPolicyArns:
-        - managedpolicyarn
+        - !Ref BackupGroup
   BackupPolicy:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName:
-      Groups:
-        - group
-      Roles:
-        - role
+      PolicyName: BackupPolicy
       Users:
-        - user
-      PolicyDocument: # policy document - can be JSON or YAML
+        - !Ref BackupUser
+      PolicyDocument:  
+        Version: 2012-10-17
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - 's3:PutObject'
+            Resource: '*'
   BackupBucket:
     Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
     Properties:
       AccessControl: Private
-      CorsConfiguration:
-      LifecycleConfiguration:
-      NotificationConfiguration:
       VersioningConfiguration:
-      WebsiteConfiguration:
-      Tags:
-        - Key: Name
-          Value: Backup
+        Status: Enabled
 Outputs:
+  BackupBucket:
+    Description: The S3 backup bucket 
+    Value: !Ref BackupBucket

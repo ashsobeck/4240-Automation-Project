@@ -3,11 +3,9 @@ import sys
 import getopt
 import boto3
 import os
-from dotenv import load_dotenv
-from pathlib import Path
+from dotenv import load_dotenv, find_dotenv
 
-dotenv_path = Path('~/secrets.env')
-load_dotenv(dotenv_path=dotenv_path)
+load_dotenv(find_dotenv())
 AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
 AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
 

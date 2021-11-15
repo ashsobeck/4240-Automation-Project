@@ -10,6 +10,6 @@ unix_time_now=`date +%s`
 filename="$date_of_backup-$unix_time_now.tar.gz"
 echo $filename
 bucketname="4240-backup-bucket-for-vm-presentation-f21"
-tar -czvf  ~/backups/$filename --exclude="*.tar.gz" --exclude="*.env" ~/*
+tar -czvf  ~/backups/$filename --exclude="*.tar.gz" --exclude="*.env" --exclude-vcs ~/*
 echo "Finished backup, running cloud backup..."
 python3 ~/4240-Automation-Project/backup.py -f ~/backups/$filename -b $bucketname 

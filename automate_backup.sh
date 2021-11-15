@@ -12,4 +12,4 @@ echo $filename
 bucketname="4240-backup-bucket-for-vm-presentation-f21"
 tar -czvf  ~/backups/$filename --exclude="~/backups" ~/*
 echo "Finished backup, running cloud backup..."
-python3 ~/4240-Automation-Project/backup.py -f ~/4240-Automation-Project/backups/$filename -b $bucketname 
+python3 ~/4240-Automation-Project/backup.py -f ~/backups/$filename -b $bucketname 

@@ -2,9 +2,23 @@
 import sys
 import getopt
 import boto3
+import os
+from dotenv import load_dotenv
+from pathlib import Path
 
+dotenv_path = Path('~/clemson/')
+load_dotenv(dotenv_path=dotenv_path)
+AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
+AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
 
-s3 = boto3.resource('s3', 'us-east-1')
+session = boto3.session.Session()
+
+s3 = session.resource(service_name='s3',
+                      region_name='us-east-2',
+                      aws_access_key_id=AWS_ACCESS_KEY,
+                      aws_secret_access_key=AWS_SECRET_KEY)
+client = session.client(service_name='s3', region_name='us-east-2', aws_access_key_id=AWS_ACCESS_KEY,
+                        aws_secret_access_key=AWS_SECRET_KEY)
 
 
 def main(argv):
